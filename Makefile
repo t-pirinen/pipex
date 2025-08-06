@@ -1,8 +1,43 @@
 
 
 NAME = pipex
-LIB = libpipex.h
+LIB = header/libpipex.h
+
+CC = cc -Wall -Wextra -Werror
 
 LIBFT = libft/libft.a
 
-SRC = 
+SRC_PATH = src/
+OBJ_PATH = obj/
+
+SRC = main.c childs.c frees_and_error.c
+SRCS = $(addprefix src/, $(SRC))
+
+OBJ = $(SRC:.c=.o)
+OBJS = $(addprefix obj/, $(OBJ))
+
+all: $(OBJ_PATH) $(LIBFT) $(NAME)
+
+$(OBJ_PATH):
+	mkdir $(OBJ_PATH)
+
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	$(CC) -c $^ -o $@
+
+$(LIBFT):
+	make -C libft -s
+
+$(NAME): $(OBJS) $(LIB)
+	$(CC) $(OBJS) $(LIBFT) -o $(NAME)
+
+clean:
+	rm -rf obj
+	make clean -C libft -s
+
+fclean: clean
+	rm -rf pipex
+	make fclean -C libft -s
+
+re: clean all
+
+.PHONY: all clean fclean re
