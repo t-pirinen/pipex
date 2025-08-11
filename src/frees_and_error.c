@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   frees_and_errors.c                                 :+:      :+:    :+:   */
+/*   frees_and_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 17:49:36 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/01 18:57:30 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/11 19:12:42 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ void	parent_free(struct s_pipex *pipex)
 	int	i;
 
 	i = 0;
-	close(pipex->infile);
-	close(pipex->outfile);
-	while (pipex->cmd_paths[i])
+	if (pipex->cmd_paths)
 	{
-		free(pipex->cmd_paths[i]);
-		i++;
+		while (pipex->cmd_paths[i])
+		{
+			free(pipex->cmd_paths[i]);
+			i++;
+		}
+		free(pipex->cmd_paths);
+		pipex->cmd_paths = NULL;
 	}
-	free(pipex->cmd_paths);
 }
 
 void	child_free(struct s_pipex *pipex)
@@ -32,13 +34,21 @@ void	child_free(struct s_pipex *pipex)
 	int	i;
 
 	i = 0;
-	while (pipex->cmd_and_args[i])
-	{
-		free(pipex->cmd_and_args[i]);
-		i++;
+	if (pipex->cmd_and_args)
+	{	
+		while (pipex->cmd_and_args[i])
+		{
+			free(pipex->cmd_and_args[i]);
+			i++;
+		}
+		free(pipex->cmd_and_args);
+		pipex->cmd_and_args = NULL;
 	}
-	free(pipex->cmd_and_args);
-	free(pipex->full_cmd_path);
+	if (pipex->full_cmd_path)
+	{
+		free(pipex->full_cmd_path);
+		pipex->full_cmd_path = NULL;
+	}
 }
 
 void	perror_and_exit(char *err)

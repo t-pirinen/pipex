@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:31:45 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/01 18:50:46 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:16:36 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	ft_int_arr_copy(int *dest, int *src, int size);
 
 /*		print functions	*/
 int		ft_printf(const char *s, ...);
+int		ft_fprintf(int fd, const char *s, ...);
 ssize_t	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 ssize_t	ft_putnbr_fd(int n, int fd);

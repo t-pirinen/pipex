@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 15:37:20 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/01 18:57:45 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:37:05 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,19 @@ struct s_pipex
 	char	**cmd_paths;
 	char	**cmd_and_args;
 	char	*full_cmd_path;
+};
+
+enum e_pipe
+{
+	READ,
+	WRITE
+};
+
+enum e_in_out_err
+{
+	STDIN,
+	STDOUT,
+	STDERR
 };
 
 void	first_child(struct s_pipex pipex, char **av, char **envp);
