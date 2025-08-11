@@ -10,7 +10,7 @@ LIBFT = libft/libft.a
 SRC_PATH = src/
 OBJ_PATH = obj/
 
-SRC = main.c childs.c frees_and_error.c
+SRC = child_one.c child_two.c frees.c main.c paths.c utils.c
 SRCS = $(addprefix src/, $(SRC))
 
 OBJ = $(SRC:.c=.o)
@@ -31,11 +31,12 @@ $(NAME): $(OBJS) $(LIB)
 	$(CC) $(OBJS) $(LIBFT) -o $(NAME)
 
 clean:
-	rm -rf obj
+	rm -rf $(OBJ_PATH)
 	make clean -C libft -s
 
-fclean: clean
-	rm -rf pipex
+fclean:
+	rm -rf $(OBJ_PATH)
+	rm -rf $(NAME)
 	make fclean -C libft -s
 
 re: clean all

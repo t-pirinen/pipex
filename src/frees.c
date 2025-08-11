@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   frees_and_error.c                                  :+:      :+:    :+:   */
+/*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/01 17:49:36 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/11 22:55:27 by tpirinen         ###   ########.fr       */
+/*   Created: 2025/08/12 01:43:32 by tpirinen          #+#    #+#             */
+/*   Updated: 2025/08/12 01:43:45 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/libpipex.h"
 
-void	parent_free(struct s_pipex *pipex)
-{
-	int	i;
-
-	i = 0;
-	if (pipex->cmd_paths)
-	{
-		while (pipex->cmd_paths[i])
-		{
-			free(pipex->cmd_paths[i]);
-			i++;
-		}
-		free(pipex->cmd_paths);
-		pipex->cmd_paths = NULL;
-	}
-}
-
+// Frees the cmd_and_args and full_cmd_path variables in the pipex struct.
 void	child_free(struct s_pipex *pipex)
 {
 	int	i;
@@ -51,8 +35,20 @@ void	child_free(struct s_pipex *pipex)
 	}
 }
 
-void	perror_and_exit(char *err)
+// Frees the cmd_paths variable in the pipex struct.
+void	parent_free(struct s_pipex *pipex)
 {
-	perror(err);
-	exit(1);
+	int	i;
+
+	i = 0;
+	if (pipex->cmd_paths)
+	{
+		while (pipex->cmd_paths[i])
+		{
+			free(pipex->cmd_paths[i]);
+			i++;
+		}
+		free(pipex->cmd_paths);
+		pipex->cmd_paths = NULL;
+	}
 }

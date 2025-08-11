@@ -6,22 +6,11 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 15:36:57 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/11 22:55:01 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/12 01:45:35 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/libpipex.h"
-
-static char	*find_path(char **envp)
-{
-	while (*envp)
-	{
-		if (ft_strncmp("PATH", *envp, 4) == 0)
-			return (*envp + 5);
-		envp++;
-	}
-	return (NULL);
-}
 
 int	main(int ac, char **av, char **envp)
 {
@@ -30,29 +19,19 @@ int	main(int ac, char **av, char **envp)
 	int				status2;
 
 	ft_memset(&pipex, 0, sizeof * &pipex);
-	if (ac != 5)
-		return (ft_error_msg("Error: Invalid number of arguments.\n", 1));
-	if (!av[1][0] || !av[2][0] || !av[3][0] || !av[4][0])
-		return (ft_error_msg("Error: Empty argument.\n", 1));
+	if_args_invalid_do_exit(ac, av);
 	pipex.infile = open(av[1], O_RDONLY);
 	pipex.outfile = open(av[4], O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	if (pipex.outfile < 0)
-		perror(av[4]);
-	if (pipe(pipex.pipe) == -1)
-		perror_and_exit("Pipe");
+	create_pipe_if_err_do_exit(&pipex);
 	pipex.cmd_paths = ft_split(find_path(envp), ':');
+	cmd_paths_if_err_do_exit(&pipex);
 	pipex.pid1 = fork();
 	if (pipex.pid1 == 0)
-		first_child(pipex, av, envp);
+		child_one(pipex, av, envp);
 	pipex.pid2 = fork();
 	if (pipex.pid2 == 0)
-		second_child(pipex, av, envp);
-	close(pipex.pipe[READ]);
-	close(pipex.pipe[WRITE]);
-	if (pipex.infile >= 0)
-		close(pipex.infile);
-	if (pipex.outfile >= 0)
-		close(pipex.outfile);
+		child_two(pipex, av, envp);
+	close_parent_fds(&pipex);
 	waitpid(pipex.pid1, &status1, 0);
 	waitpid(pipex.pid2, &status2, 0);
 	parent_free(&pipex);
