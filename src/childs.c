@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 16:56:37 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/11 19:09:21 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/11 22:54:43 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ void	second_child(struct s_pipex pipex, char **av, char **envp)
 	{
 		perror(av[4]);
 		close(pipex.pipe[READ]);
-        child_free(&pipex);
-        exit(1);
+		child_free(&pipex);
+		exit(1);
 	}
 	if (dup2(pipex.outfile, STDOUT) == -1)
 	{
 		perror(av[4]);
 		close(pipex.pipe[READ]);
 		close(pipex.outfile);
-        child_free(&pipex);
-        exit(1);
+		child_free(&pipex);
+		exit(1);
 	}
 	pipex.cmd_and_args = ft_split(av[3], ' ');
 	if (!pipex.cmd_and_args || !pipex.cmd_and_args[0])

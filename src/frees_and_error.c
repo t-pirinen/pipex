@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 17:49:36 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/11 19:12:42 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/11 22:55:27 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	child_free(struct s_pipex *pipex)
 
 	i = 0;
 	if (pipex->cmd_and_args)
-	{	
+	{
 		while (pipex->cmd_and_args[i])
 		{
 			free(pipex->cmd_and_args[i]);

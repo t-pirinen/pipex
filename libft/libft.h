@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:31:45 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/11 16:16:36 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/11 22:53:53 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_list
 }					t_list;
 
 /*		errors		*/
-int	ft_error_msg(char *err_msg, int err_code);
+int		ft_error_msg(char *err_msg, int err_code);
 
 /*		ascii		*/
 int		ft_isalnum(int c);
