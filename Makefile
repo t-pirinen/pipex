@@ -10,7 +10,7 @@ LIBFT = libft/libft.a
 SRC_PATH = src/
 OBJ_PATH = obj/
 
-SRC = child_one.c child_two.c frees.c main.c paths.c utils.c
+SRC = child_1.c child_2.c frees.c main.c paths.c
 SRCS = $(addprefix src/, $(SRC))
 
 OBJ = $(SRC:.c=.o)

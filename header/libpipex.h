@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 15:37:20 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/12 01:46:28 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/14 22:18:11 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ struct s_pipex
 	int		pipe[2];
 	int		infile;
 	int		outfile;
-	char	**cmd_paths;
-	char	**cmd_and_args;
-	char	*full_cmd_path;
+	char	**paths;
+	char	**cmd_and_params;
+	char	*cmd_path;
 };
 
 enum e_pipe
@@ -52,19 +52,13 @@ enum e_in_out_err
 	STDERR
 };
 
-void	if_args_invalid_do_exit(int ac, char **av);
-void	create_pipe_if_err_do_exit(struct s_pipex *pipex);
-void	cmd_paths_if_err_do_exit(struct s_pipex *pipex);
+char	*find_paths(char **envp);
+char	*get_cmd_path(char **paths, char *cmd_name, struct s_pipex *pipex);
 
-char	*find_path(char **envp);
-char	*get_full_cmd_path(char **paths, char *cmd_name, struct s_pipex *pipex);
-
-void	child_one(struct s_pipex pipex, char **av, char **envp);
-void	child_two(struct s_pipex pipex, char **av, char **envp);
+void	child_1(struct s_pipex pipex, char **av, char **envp);
+void	child_2(struct s_pipex pipex, char **av, char **envp);
 
 void	parent_free(struct s_pipex *pipex);
 void	child_free(struct s_pipex *pipex);
-
-void	close_parent_fds(struct s_pipex *pipex);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:45:33 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/11 16:18:06 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/14 21:13:29 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static ssize_t	ft_parse_args(int fd, char specifier, va_list args);
 static ssize_t	ft_loop_s(int fd, va_list args, const char *s, ssize_t err);
 
+/*	First argument serves as the file descriptor to print to.		*/
 int	ft_fprintf(int fd, const char *s, ...)
 {
 	va_list	args;
