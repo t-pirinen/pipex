@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 15:37:20 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/15 13:14:23 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/15 13:59:58 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,11 @@ enum e_in_out_err
 };
 
 void	arg_validity_check(int ac, char **av);
-void	get_paths_and_err_check(struct s_pipex *pipex, char **envp);
 void	create_pipe_and_err_check(struct s_pipex *pipex);
 void	fork_err_check(struct s_pipex *pipex);
 void	waitpid_failed(struct s_pipex *pipex);
 
-char	*find_path(char **envp);
+void	get_paths_and_err_check(struct s_pipex *pipex, char **envp);
 char	*get_cmd_path(struct s_pipex *pipex, char **paths, char *cmd_name);
 
 void	child_1(struct s_pipex pipex, char **av, char **envp);

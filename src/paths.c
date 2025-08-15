@@ -6,14 +6,14 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 23:14:06 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/15 12:31:10 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/15 13:59:41 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/libpipex.h"
 
 // Returns a pointer to the memory which holds the contents of $PATH.
-char	*find_path(char **envp)
+static char	*find_path(char **envp)
 {
 	while (*envp)
 	{
@@ -23,6 +23,19 @@ char	*find_path(char **envp)
 	}
 	ft_fprintf(STDERR, "$PATH not found");
 	exit(1);
+}
+
+/*	Gets the contents of the $PATH variable and turns it into an array
+	of the individual possible paths and checks if the memory allocation
+	in ft_split failed when creating the array.		*/
+void	get_paths_and_err_check(struct s_pipex *pipex, char **envp)
+{
+	pipex->paths = ft_split(find_path(envp), ':');
+	if (pipex->paths == NULL)
+	{
+		ft_fprintf(2, "Error: paths: malloc() failed.");
+		exit(1);
+	}
 }
 
 /*	Tests access to the given command and returns the full command path
