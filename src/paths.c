@@ -6,14 +6,14 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 23:14:06 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/14 22:18:11 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:31:10 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/libpipex.h"
 
 // Returns a pointer to the memory which holds the contents of $PATH.
-char	*find_paths(char **envp)
+char	*find_path(char **envp)
 {
 	while (*envp)
 	{
@@ -28,7 +28,7 @@ char	*find_paths(char **envp)
 /*	Tests access to the given command and returns the full command path
 	when access to command is found e.g. /usr/bin/ls.
 	Returns NULL when command isn't accessible.		*/
-char	*get_cmd_path(char **paths, char *cmd_name, struct s_pipex *pipex)
+char	*get_cmd_path(struct s_pipex *pipex, char **paths, char *cmd_name)
 {
 	char	*path_with_slash;
 	char	*cmd_path;

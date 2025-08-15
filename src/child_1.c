@@ -12,6 +12,17 @@
 
 #include "../header/libpipex.h"
 
+static void	infile_err_check(struct s_pipex *pipex, char **av)
+{
+	if (pipex->infile == -1)
+	{
+		perror(av[1]);
+		child_free(pipex);
+		close(pipex->pipe[WRITE]);
+		exit(1);
+	}
+}
+
 static void	dup2_and_err_check(int fd_1, int fd_2, struct s_pipex *pipex)
 {
 	if (dup2(fd_1, fd_2) == -1)
@@ -20,17 +31,6 @@ static void	dup2_and_err_check(int fd_1, int fd_2, struct s_pipex *pipex)
 		child_free(pipex);
 		close(pipex->pipe[WRITE]);
 		close(pipex->infile);
-		exit(1);
-	}
-}
-
-static void	infile_err_check(struct s_pipex *pipex, char **av)
-{
-	if (pipex->infile == -1)
-	{
-		perror(av[1]);
-		child_free(pipex);
-		close(pipex->pipe[WRITE]);
 		exit(1);
 	}
 }
@@ -58,7 +58,7 @@ static void	get_cmd_and_params_and_err_check(struct s_pipex *pipex, char **av)
 
 static void	get_cmd_path_and_err_check(struct s_pipex *pipex, char *cmd_name)
 {
-	pipex->cmd_path = get_cmd_path(pipex->paths, cmd_name, pipex);
+	pipex->cmd_path = get_cmd_path(pipex, pipex->paths, cmd_name);
 	if (!pipex->cmd_path)
 	{
 		ft_fprintf(STDERR, "%s: command not found\n", cmd_name);

@@ -58,7 +58,7 @@ static void	get_cmd_and_params_and_err_check(struct s_pipex *pipex, char **av)
 
 static void	get_cmd_path_and_err_check(struct s_pipex *pipex, char *cmd_name)
 {
-	pipex->cmd_path = get_cmd_path(pipex->paths, cmd_name, pipex);
+	pipex->cmd_path = get_cmd_path(pipex, pipex->paths, cmd_name);
 	if (!pipex->cmd_path)
 	{
 		ft_fprintf(STDERR, "%s: command not found\n", cmd_name);
