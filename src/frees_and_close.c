@@ -6,60 +6,64 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 01:43:32 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/15 13:10:39 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/16 16:57:53 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/libpipex.h"
 
-// Frees the cmd_and_params and cmd_path variables in the pipex struct.
-void	child_free(struct s_pipex *pipex)
+static void	paths_free(t_child *child)
 {
 	int	i;
 
 	i = 0;
-	if (pipex->cmd_and_params)
+	if (child->paths)
 	{
-		while (pipex->cmd_and_params[i])
+		while (child->paths[i])
 		{
-			free(pipex->cmd_and_params[i]);
+			free(child->paths[i]);
 			i++;
 		}
-		free(pipex->cmd_and_params);
-		pipex->cmd_and_params = NULL;
-	}
-	if (pipex->cmd_path)
-	{
-		free(pipex->cmd_path);
-		pipex->cmd_path = NULL;
+		free(child->paths);
+		child->paths = NULL;
 	}
 }
 
-// Frees the paths variable in the pipex struct.
-void	parent_free(struct s_pipex *pipex)
+static void	cmd_and_params_free(t_child *child)
 {
 	int	i;
 
 	i = 0;
-	if (pipex->paths)
+	if (child->cmd_and_params)
 	{
-		while (pipex->paths[i])
+		while (child->cmd_and_params[i])
 		{
-			free(pipex->paths[i]);
+			free(child->cmd_and_params[i]);
 			i++;
 		}
-		free(pipex->paths);
-		pipex->paths = NULL;
+		free(child->cmd_and_params);
+		child->cmd_and_params = NULL;
+	}
+}
+
+void	child_free(t_child *child)
+{
+	paths_free(child);
+	cmd_and_params_free(child);
+	if (child->cmd_path)
+	{
+		free(child->cmd_path);
+		child->cmd_path = NULL;
 	}
 }
 
 // Closes the file descriptors that are open in the parent process.
-void	close_parent_fds(struct s_pipex *pipex)
+void	close_parent_fds(t_parent *parent)
 {
-	close(pipex->pipe[READ]);
-	close(pipex->pipe[WRITE]);
-	if (pipex->infile >= 0)
-		close(pipex->infile);
-	if (pipex->outfile >= 0)
-		close(pipex->outfile);
+	close(parent->pipe[READ]);
+	close(parent->pipe[WRITE]);
+	if (parent->infile >= 0)
+		close(parent->infile);
+	if (parent->outfile >= 0)
+		close(parent->outfile);
 }

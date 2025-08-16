@@ -53,7 +53,3 @@ dkms.conf
 
 # debug information files
 *.dwo
-
-outfile
-42_pipex_tester
-pipex-tester
