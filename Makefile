@@ -10,7 +10,10 @@ LIBFT = libft/libft.a
 SRC_PATH = src/
 OBJ_PATH = obj/
 
-SRC = child_1.c child_2.c frees_and_close.c main.c paths.c main_util.c
+SRC = main.c child_1.c child_2.c arg_validation.c		\
+		get_cmd_path.c get_paths.c pipe_and_fork.c	\
+		waitpid_fail.c frees_and_close.c
+
 SRCS = $(addprefix src/, $(SRC))
 
 OBJ = $(SRC:.c=.o)
@@ -41,4 +44,5 @@ fclean:
 
 re: clean all
 
+.SECONDARY: $(OBJS)
 .PHONY: all clean fclean re

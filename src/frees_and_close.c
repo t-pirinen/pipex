@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 01:43:32 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/16 16:57:53 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/18 18:58:24 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,18 @@ void	child_free(t_child *child)
 		free(child->cmd_path);
 		child->cmd_path = NULL;
 	}
+}
+
+void	close_child_fds(t_parent *parent)
+{
+	if (parent->pipe[READ] >= 0)
+		close(parent->pipe[READ]);
+	if (parent->pipe[WRITE] >= 0)
+		close(parent->pipe[WRITE]);
+	if (parent->infile >= 0)
+		close(parent->infile);
+	if (parent->outfile >= 0)
+		close(parent->outfile);
 }
 
 // Closes the file descriptors that are open in the parent process.

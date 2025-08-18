@@ -6,16 +6,34 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 15:36:57 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/16 15:46:57 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/18 19:49:41 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/libpipex.h"
 
+static void	wait_for_children(t_parent *parent)
+{
+	int		child_count;
+	int		status;
+	pid_t	pid;
+
+	child_count = 2;
+	pid = 0;
+	while (child_count)
+	{
+		pid = waitpid(-1, &status, 0);
+		if (pid == -1)
+			waitpid_failed(parent);
+		if (pid == parent->pid2)
+			parent->exit_code = status;
+		child_count--;
+	}
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	t_parent	parent;
-	int			child2_status;
 
 	ft_memset(&parent, 0, sizeof(parent));
 	arg_validity_check(ac, av);
@@ -31,9 +49,6 @@ int	main(int ac, char **av, char **envp)
 	if (parent.pid2 == 0)
 		child_2(parent, av, envp);
 	close_parent_fds(&parent);
-	if (waitpid(parent.pid1, NULL, 0) == -1)
-		waitpid_failed(&parent);
-	if (waitpid(parent.pid2, &child2_status, 0) == -1)
-		waitpid_failed(&parent);
-	return (child2_status >> 8);
+	wait_for_children(&parent);
+	return (parent.exit_code >> 8);
 }

@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 15:37:20 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/16 17:09:47 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/18 19:36:52 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 // for perror()
 # include <stdio.h>
 
+# include <stdbool.h>
+
 typedef struct t_parent
 {
 	pid_t	pid1;
@@ -34,6 +36,7 @@ typedef struct t_parent
 	int		pipe[2];
 	int		infile;
 	int		outfile;
+	int		exit_code;
 }	t_parent;
 
 typedef struct s_child
@@ -62,13 +65,14 @@ void	create_pipe_and_err_check(t_parent *parent);
 void	fork_err_check(t_parent *parent);
 void	waitpid_failed(t_parent *parent);
 
-void	get_paths_and_err_check(t_child *child, char **envp);
-void	get_cmd_path(t_child *child, char **paths);
+void	get_paths(t_parent *parent, t_child *child, char **envp);
+void	get_cmd_path(t_parent *parent, t_child *child, char **paths);
 
 void	child_1(t_parent parent, char **av, char **envp);
 void	child_2(t_parent parent, char **av, char **envp);
 
 void	child_free(t_child *child);
+void	close_child_fds(t_parent *parent);
 void	close_parent_fds(t_parent *pipex);
 
 #endif
