@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 15:37:20 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/18 19:36:52 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:13:14 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	child_1(t_parent parent, char **av, char **envp);
 void	child_2(t_parent parent, char **av, char **envp);
 
 void	child_free(t_child *child);
-void	close_child_fds(t_parent *parent);
-void	close_parent_fds(t_parent *pipex);
+void	close_fds(t_parent *parent);
+void	close_fds(t_parent *pipex);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 23:14:06 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/18 18:57:03 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:13:14 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	get_paths(t_parent *parent, t_child *child, char **envp)
 	{
 		write(STDERR, "Error: paths: malloc() failed.\n", 31);
 		child_free(child);
-		close_child_fds(parent);
+		close_fds(parent);
 		exit(1);
 	}
 }

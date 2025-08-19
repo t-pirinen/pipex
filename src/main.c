@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 15:36:57 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/18 19:49:41 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:12:50 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int ac, char **av, char **envp)
 	fork_err_check(&parent);
 	if (parent.pid2 == 0)
 		child_2(parent, av, envp);
-	close_parent_fds(&parent);
+	close_fds(&parent);
 	wait_for_children(&parent);
 	return (parent.exit_code >> 8);
 }

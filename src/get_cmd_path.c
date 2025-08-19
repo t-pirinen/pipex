@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:32:28 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/18 18:55:21 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:13:36 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	is_cmd_name_a_path(t_parent *parent, t_child *child)
 	write(STDERR, child->cmd_name, ft_strlen(child->cmd_name));
 	write(STDERR, "\n", 1);
 	child_free(child);
-	close_child_fds(parent);
+	close_fds(parent);
 	exit(127);
 }
 
@@ -39,7 +39,7 @@ static void	no_environment_check(t_parent *parent, t_child *child)
 		write(STDERR, child->cmd_name, ft_strlen(child->cmd_name));
 		write(STDERR, ": command not found\n", 20);
 		child_free(child);
-		close_child_fds(parent);
+		close_fds(parent);
 		exit(127);
 	}
 }
@@ -64,7 +64,7 @@ void	get_cmd_path(t_parent *parent, t_child *child, char **paths)
 		{
 			write(STDERR, "Error: cmd_path: malloc() failed.\n", 34);
 			child_free(child);
-			close_child_fds(parent);
+			close_fds(parent);
 			exit(1);
 		}
 		free(path_with_slash);

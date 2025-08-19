@@ -10,28 +10,28 @@ LIBFT = libft/libft.a
 SRC_PATH = src/
 OBJ_PATH = obj/
 
-SRC = main.c child_1.c child_2.c arg_validation.c		\
+SRC = main.c child_1.c child_2.c arg_validation.c	\
 		get_cmd_path.c get_paths.c pipe_and_fork.c	\
 		waitpid_fail.c frees_and_close.c
 
-SRCS = $(addprefix src/, $(SRC))
+SRCS = $(addprefix $(SRC_PATH), $(SRC))
 
 OBJ = $(SRC:.c=.o)
-OBJS = $(addprefix obj/, $(OBJ))
+OBJS = $(addprefix $(OBJ_PATH), $(OBJ))
 
 all: $(OBJ_PATH) $(LIBFT) $(NAME)
 
 $(OBJ_PATH):
-	mkdir $(OBJ_PATH)
+	@mkdir $(OBJ_PATH)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	$(CC) -c $^ -o $@
+	@$(CC) -c $^ -o $@
 
 $(LIBFT):
-	make -C libft -s
+	@make -C libft -s
 
 $(NAME): $(OBJS) $(LIB)
-	$(CC) $(OBJS) $(LIBFT) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBFT) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ_PATH)
@@ -44,5 +44,5 @@ fclean:
 
 re: clean all
 
-.SECONDARY: $(OBJS)
+.SECONDARY: $(OBJS) $(LIB)
 .PHONY: all clean fclean re
