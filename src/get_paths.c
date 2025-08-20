@@ -6,15 +6,16 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 23:14:06 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/19 14:13:14 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:49:49 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/libpipex.h"
 
 /*	Gets the contents of the $PATH variable and turns it into an array
-	of the individual possible paths additionally checking if the
-	memory allocation in ft_split failed when creating the array.		*/
+*	of the individual possible paths. If path isn't found, sets child->paths
+*	to NULL to indicate an empty environment and returns.
+*/
 void	get_paths(t_parent *parent, t_child *child, char **envp)
 {
 	char	*path;

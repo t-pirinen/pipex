@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:32:28 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/19 14:13:36 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:47:04 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,10 @@ static void	no_environment_check(t_parent *parent, t_child *child)
 }
 
 /*	Tests access to the given command and returns immediately when a valid path
-	is found e.g. /usr/bin/ls. If the cmd_name is a valid path
-	assigns cmd_name to cmd_path and returns. If no valid path is found,
-	sets cmd_path to NULL.		*/
+*	is found e.g. /usr/bin/ls. If the cmd_name is a valid path
+*	assigns cmd_name to cmd_path and returns. If no valid path is found,
+*	sets cmd_path to NULL.
+*/
 void	get_cmd_path(t_parent *parent, t_child *child, char **paths)
 {
 	char	*path_with_slash;

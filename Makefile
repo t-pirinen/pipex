@@ -44,5 +44,4 @@ fclean:
 
 re: clean all
 
-.SECONDARY: $(OBJS) $(LIB)
 .PHONY: all clean fclean re
