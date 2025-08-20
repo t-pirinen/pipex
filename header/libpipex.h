@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 15:37:20 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/19 14:13:14 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:39:37 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../libft/libft.h"
 
-// for pid_t definition
+// for type pid_t
 # include <sys/types.h>
 
 // for waitpid()
@@ -27,6 +27,7 @@
 // for perror()
 # include <stdio.h>
 
+// for true & false
 # include <stdbool.h>
 
 typedef struct t_parent
@@ -73,6 +74,5 @@ void	child_2(t_parent parent, char **av, char **envp);
 
 void	child_free(t_child *child);
 void	close_fds(t_parent *parent);
-void	close_fds(t_parent *pipex);
 
 #endif
