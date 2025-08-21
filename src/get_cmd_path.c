@@ -6,7 +6,7 @@
 /*   By: tpirinen <tpirinen@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:32:28 by tpirinen          #+#    #+#             */
-/*   Updated: 2025/08/20 12:47:04 by tpirinen         ###   ########.fr       */
+/*   Updated: 2025/08/21 12:35:11 by tpirinen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static int	is_cmd_name_a_path(t_parent *parent, t_child *child)
 	char	*cmd_name;
 
 	cmd_name = child->cmd_name;
-	if (ft_strchr(cmd_name, '/') == NULL)
-		return (false);
 	if (access(child->cmd_name, F_OK) == 0)
 	{
 		child->cmd_path = child->cmd_name;
 		return (true);
 	}
+	if (ft_strchr(cmd_name, '/') == NULL)
+		return (false);
 	write(STDERR, "Error: no such file or directory: \n", 35);
 	write(STDERR, child->cmd_name, ft_strlen(child->cmd_name));
 	write(STDERR, "\n", 1);
